@@ -5,8 +5,7 @@ import { useEffect, useState } from 'react';
     
     const connectToDevice = () => {
       navigator.bluetooth.requestDevice({
-        acceptAllDevices: true,
-        optionalServices: ['battery_service'] // Required to access service later.
+        filters: [{ name: 'A22' }] // Required to access service later.
       })
       .then(device => { console.log(device) })
       .catch(error => { console.error(error); });
