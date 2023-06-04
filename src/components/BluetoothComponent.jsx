@@ -3,12 +3,14 @@ import { useEffect, useState } from 'react';
 
   const BluetoothComponent = () => {
     
-    const connectToDevice = async() => {
-      // Request the Bluetooth device through browser
-const device = await navigator.bluetooth.requestDevice({
-  acceptAllDevices: true,
-  optionalServices: ["battery_service", "device_information"],
-});
+    const connectToDevice = () => {
+      navigator.bluetooth.requestDevice({
+        
+        optionalServices: ['battery_service'] // Required to access service later.
+      })
+      .then(device => { console.log(device) })
+      .catch(error => { console.error(error); });
+        
     }
 
     return (
