@@ -4,10 +4,24 @@ import { useEffect, useState } from 'react';
   const BluetoothComponent = () => {
     
     const connectToDevice = () => {
-      navigator.bluetooth.requestDevice({
-        filters: [{ name: 'A22 de Dayana' }] // Required to access service later.
+      navigator.bluetooth.requestDevice({  acceptAllDevices: true,
+        optionalServices: ['battery_service'] })
+      .then(device => device.gatt.connect())
+      .then(server => {
+        // Getting Battery Service…
+        return server.getPrimaryService('battery_service');
       })
-      .then(device => { console.log(device) })
+      .then(service => {
+        // Getting Battery Level Characteristic…
+        return service.getCharacteristic('battery_level');
+      })
+      .then(characteristic => {
+        // Reading Battery Level…
+        return characteristic.readValue();
+      })
+      .then(value => {
+        console.log(`Battery percentage is ${value.getUint8(0)}`);
+      })
       .catch(error => { console.error(error); });
         
     }
