@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+// import { useEffect, useState } from 'react';
 
 
   const BluetoothComponent = () => {
@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react';
     const connectToDevice = async() => {
       // Request the Bluetooth device through browser
 const device = await navigator.bluetooth.requestDevice({
-  optionalServices: ["battery_service", "device_information"],
+  optionalServices: ["battery_service"],
   acceptAllDevices: true,
 });
 // Connect to the GATT server
